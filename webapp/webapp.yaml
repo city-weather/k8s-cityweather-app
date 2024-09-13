@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  annotations:
+    instrumentation.opentelemetry.io/inject-nodejs: "openobserve-collector/openobserve"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webapp-app
+  template:
+    metadata:
+      labels:
+        app: webapp-app
+    spec:
+      containers:
+        - name: webapp-container
+          image: meghap123/webapp:9
+          ports:
+            - containerPort: 3000

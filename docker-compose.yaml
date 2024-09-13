@@ -1,0 +1,33 @@
+# update path to applications
+version: '3'
+services:
+  mapi:
+    build:
+      context: ./mapi
+      # dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes: 
+      - ./mapi:/app
+    working_dir: /app
+    command: "python mapi.py"
+  wapi:
+    build:
+      context: ./wapi
+      # dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./wapi:/app
+    working_dir: /app
+    command: "node wapi.js"
+  webapp:
+    build:
+      context: ./webapp
+      # dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./webapp:/app
+    working_dir: /app
+    command: "npm start"

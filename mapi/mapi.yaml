@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapi-deployment
+  annotations:
+    instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mapi-app
+  template:
+    metadata:
+      labels:
+        app: mapi-app
+    spec:
+      containers:
+        - name: mapi-container
+          image: meghap123/mapi:27
+          ports:
+            - containerPort: 5000
